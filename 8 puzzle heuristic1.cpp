@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-//node class
 struct node
 {
     vector<int> orientation;
@@ -17,7 +16,6 @@ struct node
     }
 };
 
-//operator overloading for priority_queue
 struct comp
 {
     bool operator()(const node* lhs, const node* rhs) const
@@ -31,7 +29,6 @@ vector<int> goal_test;
 vector<node*> already_explored;
 priority_queue<node*, vector<node*>, comp> to_be_explored;
 
-//print board
 void print_board(node* n)
 {
     int dim = sqrt(no_of_elements);
@@ -45,11 +42,10 @@ void print_board(node* n)
     cout << endl;
 }
 
-//print solution
 void reconstruct_path_from_root_to_goal(node* n)
 {
     node* temp = n;
-    vector<node*> totalpath;	//it's a list for containing all the nodes in the path from the root to the goal
+    vector<node*> totalpath;	
     while(temp != NULL)
     {
         totalpath.push_back(temp);
@@ -65,7 +61,6 @@ void reconstruct_path_from_root_to_goal(node* n)
         print_board(totalpath[i]);
 }
 
-//calculate heuristic
 int calculate_misplaced_tiles(node* n)
 {
     int cnt = 0;
@@ -76,7 +71,6 @@ int calculate_misplaced_tiles(node* n)
     return cnt;
 }
 
-//build successor node
 node* create_successor_node(node* state, int pos1, int pos2)
 {
     node* new_state = new node();
@@ -90,7 +84,6 @@ node* create_successor_node(node* state, int pos1, int pos2)
     return new_state;
 }
 
-//generate successors
 vector<node*> get_successor(node* n)
 {
     int pos, row, col, dim;
@@ -123,7 +116,6 @@ vector<node*> get_successor(node* n)
     return successors;
 }
 
-//return true if goal
 bool is_Goal(node* n)
 {
     return (n->h_cost == 0) ? 1 : 0;
